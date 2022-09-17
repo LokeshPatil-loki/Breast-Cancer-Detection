@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"> 
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            width: 100vw;
+            height: 100vh;
+            overflow-y: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #faceImage{
+            height: 100vh;
+            /* position: absolute; */
+            /* top:0;
+            left: 0; */
+        }
+
+        .wrapper{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+        #header{
+            margin-top: 20px;
+            width: 900px;
+        }
+
+        #lblUploadImage{
+
+            font-style: normal;
+            font-weight: bolder;
+            font-size: 30px;
+            line-height: 30px;
+            text-align: center;
+            color: #FF1E46;
+        }
+
+        #browse {
+            background-color: #FF1E46;
+            color: white;
+            font-size: 30px;
+            border-radius: 15px;
+            padding: 7px 50px;
+        }
+
+
+        #actual-upload {
+<!--            display: none;-->
+        }
+
+        #btnSubmit{
+            background-color: transparent;
+            border: 5px solid #FF1E46;
+            border-radius: 15px;
+            padding: 7px 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 25px;
+            font-weight: bolder;
+            text-decoration: none;
+            text-align: center;
+            color: #FF1E46;
+        }
+        #btnSubmit:hover{
+            background-color: #FF1E46;
+            color: white;
+            font-weight: bold;
+        }
+        form{
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-control{
+            margin: 10px;
+        }
+        .divResult{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .divResult img{
+            margin-left: 90px;
+        }
+        .divResult div{
+            margin-left: 20px;
+        }
+
+        hr{
+            margin: 50px 80px;
+            color: #FF1E46;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <object id="faceImage" data="/static/face.svg" type="image/svg+xml">
+        </object>
+        <div class="container">
+            <object id="header" data="/static/BreastCancerDetection.svg" type="image/svg+xml"></object>
+            <form action="/detect" method="post" enctype="multipart/form-data">
+                <div class="form-control">
+                    <label id="lblUploadImage" for="">Upload Histopathological Image:</label>
+<!--                    <button id="browse">Browse</button>-->
+<!--&lt;!&ndash;                        <input name="histoImage" id="actual-upload" type="file" />&ndash;&gt;-->
+<!--                    </div>-->
+                <input name="histoImage" id="browse" type="file" />
+                <div class="form-control">
+                    <button id="btnSubmit" type="submit">Submit</button>
+                </div>
+            </form>
+      
+            <hr>
+            {% if result %}
+                <div class="divResult">
+                    <img width="150px" src={{img_path}} alt="">
+                    <div class="">
+                        <h1>Result</h1>
+                        <h1 id="result">{{result}}</h1>
+                    </div>
+                </div>
+            {% else %}
+                <div class="divResult">
+                    <img  src="/static/imageLogo.svg" alt="">
+                    <div class="">
+                        <h1>Result</h1>
+                        <h1 id="result"></h1>
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <script>
+        document.querySelector("#browse").addEventListener("click", function() {
+            document.querySelector("#actual-upload").click();
+        });
+    </script>
+</body>
+</html>
