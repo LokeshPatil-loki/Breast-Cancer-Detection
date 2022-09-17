@@ -26,14 +26,14 @@ def start_prediction(fileName):
         return render_template("detect.html", result=False)
 
 @app.route('/')
-def hello_world():
+def root():
     return render_template("index.html")
 
 @app.route('/detect')
 def detect():
     return render_template("detect.html")
 
-@app.route('/detect',methods=["POST"])
+@app.route('/predict',methods=["POST"])
 def predict():
     if request.method == "POST":
         print("POST REQUEST")
@@ -63,7 +63,6 @@ def predict():
 
 
 
-    # return 'Hello, World!'
 if __name__ == "__main__":
     app.run(port=3000,debug=True)
 
